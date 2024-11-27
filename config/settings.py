@@ -21,7 +21,6 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,6 +32,7 @@ INSTALLED_APPS = [
 
     # local apps
     'fastfood',
+    'modeltranslation',
 
 ]
 
@@ -99,10 +99,6 @@ AUTH_USER_MODEL = 'fastfood.User'
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGES = (
-    ('uz', "Uzbek"),
-    ('en', "Enlish"),
-)
 
 LANGUAGE_CODE = 'uz'
 
