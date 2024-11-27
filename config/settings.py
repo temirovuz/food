@@ -1,10 +1,7 @@
 import os.path
-from logging import DEBUG
 
 import environ
 from pathlib import Path
-
-from django.conf.global_settings import LANGUAGES, LANGUAGE_CODE, AUTH_USER_MODEL
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +21,7 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
