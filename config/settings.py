@@ -1,10 +1,7 @@
 import os.path
-from logging import DEBUG
 
 import environ
 from pathlib import Path
-
-from django.conf.global_settings import LANGUAGES, LANGUAGE_CODE, AUTH_USER_MODEL
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -35,6 +32,7 @@ INSTALLED_APPS = [
 
     # local apps
     'fastfood',
+    'modeltranslation',
 
 ]
 
@@ -101,10 +99,6 @@ AUTH_USER_MODEL = 'fastfood.User'
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGES = (
-    ('uz', "Uzbek"),
-    ('en', "Enlish"),
-)
 
 LANGUAGE_CODE = 'uz'
 
