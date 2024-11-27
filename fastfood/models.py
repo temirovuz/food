@@ -10,7 +10,8 @@ class User(AbstractUser):
         ('user', 'User'),
     ]
     role = models.CharField(max_length=255, choices=ROLE_CHOICES, default='user')
-    phone = models.CharField(max_length=13, unique=True)
+    phone = models.CharField(max_length=13, unique=True, blank=True)
+    username = None
     groups = None
     user_permissions = None
 
@@ -31,4 +32,3 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
-
