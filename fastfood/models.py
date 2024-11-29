@@ -49,7 +49,7 @@ class User(AbstractUser):
         ('user', 'User'),
     ]
     role = models.CharField(max_length=255, choices=ROLE_CHOICES, default='user')
-    phone_number = models.CharField(max_length=13, unique=True, blank=True)
+    phone_number = models.CharField(max_length=13, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True)
     latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
     longitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
@@ -97,4 +97,19 @@ class OrderItem(Base):
 
 class Order(Base):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey
+    order = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    status = models.CharField(max_length=255, choices=[
+        ('jarayonda', 'Jarayonda'),
+        ('qabul qilindi', 'Qabul qilindi'),
+        ('tayyor', 'Tayyor'),
+        ('bekor qilindi', 'Bekor qilindi'),
+    ],
+                              default='jarayonda')
+
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+    def __str__(self):
+        return self.status
