@@ -49,7 +49,7 @@ class User(AbstractUser):
         ('user', 'User'),
     ]
     role = models.CharField(max_length=255, choices=ROLE_CHOICES, default='user')
-    phone_number = models.CharField(max_length=13, unique=True, blank=True)
+    phone_number = models.CharField(max_length=13, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True)
     latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
     longitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
