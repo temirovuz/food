@@ -2,10 +2,17 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager
-from django.utils.translation import gettext_lazy as _
 
 
-class CustomUserAdmin(UserManager):
+class Base(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Update at')
+
+    class Meta:
+        abstract = True
+
+
+class CustomUserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
@@ -44,31 +51,50 @@ class User(AbstractUser):
     role = models.CharField(max_length=255, choices=ROLE_CHOICES, default='user')
     phone_number = models.CharField(max_length=13, unique=True, blank=True)
     email = models.EmailField(unique=True)
-
+    latitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=10, decimal_places=8, blank=True, null=True)
     username = None
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = CustomUserAdmin()
+    objects = CustomUserManager()
 
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
     def __str__(self):
         return self.email
 
 
-class Food(models.Model):
+class Food(Base):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_available = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _('Food')
-        verbose_name_plural = _('Foods')
+        verbose_name = 'Food'
+        verbose_name_plural = 'Foods'
 
     def __str__(self):
         return self.name
+
+
+class OrderItem(Base):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.food.name} x {self.quantity}"
+
+    class Meta:
+        verbose_name = 'Order Item'
+        verbose_name_plural = 'Order Items'
+
+
+class Order(Base):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey

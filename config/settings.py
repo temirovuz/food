@@ -7,7 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list, ['*'])
+    ALLOWED_HOSTS=(list, ['*']),
+    LONGITUDE=(float, 12.12),
+    LATITUDE=(float, 12.12)
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
