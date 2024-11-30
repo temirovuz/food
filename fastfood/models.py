@@ -82,22 +82,8 @@ class Food(Base):
         return self.name
 
 
-class OrderItem(Base):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    food = models.ForeignKey(Food, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
-
-    def __str__(self):
-        return f"{self.food.name} x {self.quantity}"
-
-    class Meta:
-        verbose_name = 'Order Item'
-        verbose_name_plural = 'Order Items'
-
-
 class Order(Base):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=255, choices=[
         ('jarayonda', 'Jarayonda'),
@@ -113,3 +99,17 @@ class Order(Base):
 
     def __str__(self):
         return self.status
+
+
+class OrderItem(Base):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.food.name} x {self.quantity}"
+
+    class Meta:
+        verbose_name = 'Order Item'
+        verbose_name_plural = 'Order Items'
