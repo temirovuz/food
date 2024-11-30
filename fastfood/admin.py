@@ -8,10 +8,10 @@ from fastfood.models import Food, User, OrderItem, Order
 @admin.register(User)
 class UserAdmin(UserAdmin):
     ordering = ('email',)
-    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'role')
+    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'role', 'latitude', 'longitude')
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "phone_number", "role")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "phone_number", "role", 'latitude', 'longitude')}),
         (
             _("Permissions"),
             {
