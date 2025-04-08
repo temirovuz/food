@@ -6,6 +6,7 @@ from fastfood.models import OrderItem
 grocery_store_lat = env('LONGITUDE')
 grocery_store_lon = env('LATITUDE')
 
+
 def distance(user_lat, user_lon):
     restaurant_coord = (grocery_store_lat, grocery_store_lon)
     user_coord = (user_lat, user_lon)

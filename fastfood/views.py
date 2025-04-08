@@ -18,37 +18,6 @@ class FoodDetailApView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminOrWaiter, ]
 
 
-# class OrderItemListCreateView(generics.ListCreateAPIView):
-#     serializer_class = OrderItemSerializer
-#     permission_classes = [IsAuthenticated]
-#
-#     def get_queryset(self):
-#         # Faqat foydalanuvchiga tegishli buyurtmalarni qaytarish
-#         return OrderItem.objects.filter(user=self.request.user)
-#
-#     def perform_create(self, serializer):
-#         # Yangi buyurtma yaratilayotganda user ni avtomatik belgilash
-#         serializer.save(user=self.request.user)
-
-#
-# class OrderListApiView(generics.ListCreateAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
-#     permission_classes = [IsAdminOrWaiter, ]
-#
-#
-# class CreateOrderView(generics.CreateAPIView):
-#     serializer_class = OrderSerializer
-#     permission_classes = [IsAuthenticated]
-#
-#     def perform_create(self, serializer):
-#         # Buyurtma yaratish (Order va OrderItemlarni bog'lash)
-#         order = serializer.save(user=self.request.user)
-#
-#         # Bu yerda OrderItemlar avtomatik bog'lanadi, chunki ular serializer orqali qo'shiladi
-#         return order
-
-
 class CreateOrderItemView(generics.CreateAPIView):
     serializer_class = OrderItemSerializer
     permission_classes = [IsAuthenticated]
